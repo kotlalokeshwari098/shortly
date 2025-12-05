@@ -1,6 +1,7 @@
 package com.javaspring.urlshortner.controllers;
 
 
+import com.javaspring.urlshortner.dtos.LoginRequest;
 import com.javaspring.urlshortner.dtos.RegisterRequest;
 import com.javaspring.urlshortner.models.User;
 import com.javaspring.urlshortner.service.UserService;
@@ -27,5 +28,10 @@ public class AuthController {
         user.setRole("ROLE_USER");
         userService.registerUser(user);
         return ResponseEntity.ok("User registered successfully!");
+    }
+
+    @PostMapping("/public/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(userService.loginUser(loginRequest));
     }
 }

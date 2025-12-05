@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtUtils {
 
-    @Value("${jwt.secret")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Value("${jwt.expiration}")
@@ -59,6 +59,7 @@ public class JwtUtils {
     }
 
     private Key key(){
+        System.out.println(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret)));
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
