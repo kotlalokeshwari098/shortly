@@ -7,12 +7,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Component
 public class JwtUtils {
 
     @Value("${jwt.secret")
@@ -36,6 +38,8 @@ public class JwtUtils {
         String roles=userDetails.getAuthorities().stream()
                 .map(authority->authority.getAuthority())
                 .collect(Collectors.joining(","));
+        System.out.println(roles);
+        System.out.println(userDetails.getAuthorities());
         return Jwts.builder()
                 .subject(username)
                 .claim("roles",roles)
