@@ -27,7 +27,8 @@ public class WebSecurityConfig {
                 return new JwtAuthenticationFilter();
       }
 
-      private PasswordEncoder passwordEncoder() {
+      @Bean
+      public PasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder();
       }
 
