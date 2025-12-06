@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -27,11 +28,13 @@ public class JwtUtils {
     //Authorization -> Bearer <token>
     public String getJwtFromToken(HttpServletRequest httpServletRequest) {
         String bearerToken=httpServletRequest.getHeader("Authorization");
-        if(bearerToken==null || bearerToken.startsWith("Bearer ")){
+        System.out.println("bearerToken:❤️❤️"+bearerToken);
+        if((bearerToken != null) || (bearerToken.startsWith("Bearer "))){
             return bearerToken.substring(7);
         }
         return null;
     }
+
 
     public String generateToken(UserDetailsImpl userDetails){
         String username=userDetails.getUsername();
@@ -48,7 +51,6 @@ public class JwtUtils {
                 .signWith(key())
                 .compact();
     }
-
 
 
     public String getUserNameFromJwtToken(String token){

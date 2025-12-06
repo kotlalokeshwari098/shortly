@@ -3,6 +3,7 @@ package com.javaspring.urlshortner.security;
 import com.javaspring.urlshortner.security.jwt.JwtAuthenticationFilter;
 import com.javaspring.urlshortner.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,10 +25,7 @@ public class WebSecurityConfig {
 
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
-      @Bean
-      public JwtAuthenticationFilter jwtAuthenticationFilter(){
-                return new JwtAuthenticationFilter();
-      }
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
       @Bean
       public PasswordEncoder passwordEncoder() {
@@ -57,8 +55,8 @@ public class WebSecurityConfig {
                                   .requestMatchers("/api/urls/**").authenticated()
 
                    );
-          http.authenticationProvider(daoAuthenticationProvider());
-          http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.authenticationProvider(daoAuthenticationProvider());
           return http.build();
       }
 }
