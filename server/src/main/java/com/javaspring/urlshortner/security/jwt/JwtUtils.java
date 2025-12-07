@@ -28,7 +28,6 @@ public class JwtUtils {
     //Authorization -> Bearer <token>
     public String getJwtFromToken(HttpServletRequest httpServletRequest) {
         String bearerToken=httpServletRequest.getHeader("Authorization");
-        System.out.println("bearerToken:❤️❤️"+bearerToken);
         if((bearerToken != null) || (bearerToken.startsWith("Bearer "))){
             return bearerToken.substring(7);
         }
